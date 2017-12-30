@@ -1,0 +1,11 @@
+coverage
+node_modules
+yarn-error.log
+yarn.lock
+.DS_Store
+npm-debug.log
+.idea
+*.iml
+yarn.lock
+.DS_Store
+.coveralls.yml
