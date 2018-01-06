@@ -12,8 +12,9 @@ var routers = {
 var app = express();
 
 var TIMEOUT = 10000;
-
+return
 app.use('/one/default', OneRouter(routers.default));
+
 app.use('/one/config1', OneRouter(routers.config1));
 app.use('/one/config2', OneRouter(routers.config2));
 
