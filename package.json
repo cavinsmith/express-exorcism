@@ -1,15 +1,35 @@
 {
   "name": "express-exorcism",
-  "version": "0.0.4",
-  "description": "",
+  "version": "0.0.5",
+  "description": "Express.js router wrapper for async routes",
+  "author": "Andrew G Kuznetsov <cav@cav.ru>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cavinsmith/express-exorcism.git"
+  },
+  "homepage": "https://github.com/cavinsmith/express-exorcism",
+  "keywords": [
+    "express",
+    "promise",
+    "async",
+    "router",
+    "promisify",
+    "asynchronous",
+    "wrapper",
+    "middleware",
+    "extension",
+    "plugin",
+    "catch",
+    "then",
+    "es6",
+    "es7"
+  ],
   "main": "lib/express-exorcism.js",
   "scripts": {
     "test": "mocha",
     "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
-  "author": "Andrew G Kuznetsov <cav@cav.ru>",
-  "license": "MIT",
-  "repository": "cavinsmith/express-exorcism",
   "engines": {
     "node": ">=7.5.0"
   },
