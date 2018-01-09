@@ -1,7 +1,8 @@
 {
-    "env": {
+  "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "ecmaFeatures": {
     "arrowFunctions": true,
@@ -132,10 +133,6 @@
     "no-trailing-spaces": 2,
     "camelcase": 2,
     "no-undef": 2
-  },
-  "env": {
-    "node": true,
-    "mocha": true
   },
   "extends": ["eslint:recommended"]
 }

@@ -2,8 +2,10 @@
 [![Build Status](https://travis-ci.org/cavinsmith/express-exorcism.svg?branch=master)](https://travis-ci.org/cavinsmith/express-exorcism)
 [![Coverage Status](https://coveralls.io/repos/github/cavinsmith/express-exorcism/badge.svg?branch=master)](https://coveralls.io/github/cavinsmith/express-exorcism?branch=master)
 [![NPM Downloads](https://img.shields.io/npm/dm/express-exorcism.svg)](https://npmjs.org/package/express-exorcism)
+
 [![dependencies Status](https://david-dm.org/cavinsmith/express-exorcism/status.svg)](https://david-dm.org/cavinsmith/express-exorcism)
 [![devDependencies Status](https://david-dm.org/cavinsmith/express-exorcism/dev-status.svg)](https://david-dm.org/cavinsmith/express-exorcism?type=dev)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae36f260c02340888af7949fd15a5f93)](https://www.codacy.com/app/cavinsmith/express-exorcism)
 
 express-exorcism is an `Express.js` `Router` wrapper that helps to handle async routes.
 
