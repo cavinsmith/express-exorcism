@@ -47,6 +47,12 @@ const router = express.Router();
 ...
 ```
 
+NB: If you're using `import` instead of `require` and `express-exorcism` is not
+working for you, it means that `express.Router` instances are created **before**
+`express-exorcism` wrapper is run. For example if you have `import './routes'`
+**even after** wrapping `express` - node will run it before.
+
+
 Singleton wrapper
 --------------
 By default you can wrap `express` only once with one configuration.
