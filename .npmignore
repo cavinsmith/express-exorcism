@@ -10,4 +10,6 @@ yarn.lock
 .DS_Store
 .coveralls.yml
 .nyc_output
+examples
+test
 package-lock.json
