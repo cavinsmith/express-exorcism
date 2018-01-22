@@ -8,5 +8,3 @@ node_js:
   - 9.3.0
   - 9
   - lts/*
-before_script:
-  - npm install -g mocha istanbul
