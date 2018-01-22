@@ -1,32 +1,36 @@
-var exorcism = require('../lib/express-exorcism');
-var chai = require('chai');
+/* eslint-disable no-unused-expressions */
+
+const exorcism = require('../src/express-exorcism');
+const chai = require('chai');
 chai.use(require('chai-http'));
-var expect = chai.expect;
-var OneRouter = require('./routers/one');
-var express = require('express');
+
+const expect = chai.expect;
+const OneRouter = require('./routers/one');
+const express = require('express');
+
 exorcism(express);
 
-var app = express();
+const app = express();
 
-var TIMEOUT = 10000;
+const TIMEOUT = 10000;
 
 app.use('/one/default', OneRouter(express.Router()));
 
 describe('default config, one router', function () {
   this.timeout(TIMEOUT);
 
-  after(function () {
-    setTimeout(function () {
+  after(() => {
+    setTimeout(() => {
       process.exit(0);
     }, 100);
   });
 
-  var request = chai.request.agent(app);
+  const request = chai.request.agent(app);
 
-  it('sync route, using res.send(...)', function (done) {
+  it('sync route, using res.send(...)', (done) => {
     request
       .get('/one/default/sync/res.send')
-      .end(function (err, res) {
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
@@ -35,10 +39,10 @@ describe('default config, one router', function () {
       });
   });
 
-  it('sync route, using next(...)', function (done) {
+  it('sync route, using next(...)', (done) => {
     request
       .get('/one/default/sync/res.send/error')
-      .end(function (err, res) {
+      .end((err, res) => {
         expect(res).to.have.status(500);
         expect(res.text).to.be.string;
         expect(res.text).to.contain('<pre>ERROR</pre>');
@@ -46,10 +50,10 @@ describe('default config, one router', function () {
       });
   });
 
-  it('async route, using return', function (done) {
+  it('async route, using return', (done) => {
     request
       .get('/one/default/async/return')
-      .end(function (err, res) {
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
@@ -59,10 +63,10 @@ describe('default config, one router', function () {
   });
 
 
-  it('async route, using throw', function (done) {
+  it('async route, using throw', (done) => {
     request
       .get('/one/default/async/return/error')
-      .end(function (err, res) {
+      .end((err, res) => {
         expect(res).to.have.status(500);
         expect(res.text).to.be.string;
         expect(res.text).to.contain('<pre>ERROR</pre>');
@@ -71,10 +75,10 @@ describe('default config, one router', function () {
   });
 
 
-  it('async route, using promise resolve', function (done) {
+  it('async route, using promise resolve', (done) => {
     request
       .get('/one/default/async/promise')
-      .end(function (err, res) {
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
@@ -83,10 +87,10 @@ describe('default config, one router', function () {
       });
   });
 
-  it('async route, using promise reject', function (done) {
+  it('async route, using promise reject', (done) => {
     request
       .get('/one/default/async/promise/error')
-      .end(function (err, res) {
+      .end((err, res) => {
         expect(res).to.have.status(500);
         expect(res.text).to.be.string;
         expect(res.text).to.contain('<pre>ERROR</pre>');

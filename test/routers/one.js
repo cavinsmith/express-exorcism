@@ -1,4 +1,4 @@
-module.exports = router => {
+module.exports = (router) => {
 
   router.get('/sync/res.send', (req, res) => {
     res.send({result: 'OK'});
@@ -15,7 +15,6 @@ module.exports = router => {
 
   router.get('/async/res.send', async (req, res) => {
     res.send({result: 'OK'});
-    return;
   });
 
 
@@ -25,16 +24,16 @@ module.exports = router => {
   });
 
   router.get('/async/promise', async () => {
-    return new Promise( function (resolve) {
+    return new Promise((resolve) => {
       resolve({result: 'OK'});
     });
   });
 
   router.get('/async/promise/error', async () => {
-    return new Promise( function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       reject('ERROR');
     });
   });
 
   return router;
-}
+};
