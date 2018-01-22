@@ -1,9 +1,8 @@
-'use strict';
+const methods = require('methods').concat('all');
 
-var methods = require('methods').concat('all');
-var PREFIX = '__exorcism__';
+const PREFIX = '__exorcism__';
 
-var defaultConfig = {
+const defaultConfig = {
   // Replace router methods (get, post, all ...) with new ones
   replaceOriginalMethods: true,
   // Method group name:
@@ -27,27 +26,27 @@ var defaultConfig = {
   // handleSync: false
 };
 
-module.exports = function (express, userConfig) {
+module.exports =  (express, userConfig)=> {
   // Mergin default and user configs
-  var config = Object.assign({}, defaultConfig, userConfig || {});
+  const config = Object.assign({}, defaultConfig, userConfig || {});
 
   // Using client's router
-  var Router = config.singletonRouter ? express.Router() : express.Router;
+  const Router = config.singletonRouter ? express.Router() : express.Router;
 
   // Wraps Router's method with async resolver
   function methodWrapper(routerMethod, responseMethod) {
-    return function () {
-      var args = Array.prototype.slice.call(arguments);
-      var handler = args.pop();
-      var otherArguments = args;
+    return function (...args) {
+      const args2 = Array.prototype.slice.call(args);
+      const handler = args2.pop();
+      const otherArguments = args2;
 
       if (!handler || !handler.constructor || handler.constructor.name !== 'AsyncFunction') {
-        return Router[PREFIX + routerMethod].apply(this, arguments);
+        return Router[PREFIX + routerMethod].apply(this, args);
       }
 
       return Router[PREFIX + routerMethod].apply(this, otherArguments.concat(function (req, res, next) {
-        handler.apply(null, arguments)
-          .then(function (result) {
+        handler(...arguments)
+          .then((result) => {
             if (
               (config.ignoreEmptyResolvedData &&
                 (result === null || result === undefined || result === false)
@@ -55,14 +54,14 @@ module.exports = function (express, userConfig) {
               responseMethod === 'none' ||
               !res[responseMethod]
             ) {
-              return;
+
             } else if (responseMethod === 'end') {
               res.end();
             } else {
               res[responseMethod](result);
             }
           })
-          .catch(function (error) {
+          .catch((error) => {
             next(error);
           });
       }));
@@ -72,19 +71,19 @@ module.exports = function (express, userConfig) {
   Router[config.methodGroupName] = {};
 
   config.methodList
-    .map(function (methodName) {
+    .map((methodName) => {
       // Saving original method
       Router[PREFIX + methodName] = Router[methodName];
       return methodName;
     })
     // Making wrapped method
-    .map(function (methodName) {
+    .map((methodName) => {
       return {
         name: methodName,
-        wrapped: methodWrapper(methodName, config.defaultResponseMethod)
+        wrapped: methodWrapper(methodName, config.defaultResponseMethod),
       };
     })
-    .map(function (method) {
+    .forEach((method) => {
       // Replacing original methods
       if (config.replaceOriginalMethods) {
         Router[method.name] = method.wrapped;
