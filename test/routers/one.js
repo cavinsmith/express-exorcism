@@ -1,5 +1,9 @@
 module.exports = (router) => {
 
+  router.asyncGet('/group/sync/res.send', (req, res) => {
+    res.send({result: 'OK'});
+  });
+
   router.get('/sync/res.send', (req, res) => {
     res.send({result: 'OK'});
   });

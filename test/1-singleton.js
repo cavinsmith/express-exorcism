@@ -12,6 +12,7 @@ const routers = {
   default: exorcism(express, {singletonRouter: true}),
   config1: exorcism(express, {singletonRouter: true, defaultResponseMethod: 'end'}),
   config2: exorcism(express, {singletonRouter: true, defaultResponseMethod: 'none'}),
+  config3: exorcism(express, {singletonRouter: true, replaceOriginalMethods: false}),
 };
 const app = express();
 
@@ -20,6 +21,7 @@ const TIMEOUT = 10000;
 app.use('/one/default', OneRouter(routers.default));
 app.use('/one/config1', OneRouter(routers.config1));
 app.use('/one/config2', OneRouter(routers.config2));
+app.use('/one/config3', OneRouter(routers.config3, 'async'));
 
 describe('default config, one router', function () {
   this.timeout(TIMEOUT);
@@ -185,4 +187,27 @@ describe('default config, one router', function () {
       });
   });
 
+  it('sync route in group, using res.send(...)', (done) => {
+    request
+      .get('/one/config3/group/sync/res.send')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body.result).to.equal('OK');
+        done();
+      });
+  });
+
+  it('unknown route in group, using res.send(...)', (done) => {
+    request
+      .get('/one/config3/sync/res.send')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body.result).to.equal('OK');
+        done();
+      });
+  });
 });

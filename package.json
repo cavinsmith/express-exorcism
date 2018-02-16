@@ -1,6 +1,6 @@
 {
   "name": "express-exorcism",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Express.js router wrapper for async routes",
   "author": "Andrew G Kuznetsov <cav@cav.ru>",
   "license": "MIT",

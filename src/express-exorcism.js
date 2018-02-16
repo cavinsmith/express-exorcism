@@ -68,8 +68,6 @@ module.exports =  (express, userConfig)=> {
     };
   }
 
-  Router[config.methodGroupName] = {};
-
   config.methodList
     .map((methodName) => {
       // Saving original method
@@ -89,7 +87,7 @@ module.exports =  (express, userConfig)=> {
         Router[method.name] = method.wrapped;
       }
       // Filling group method
-      Router[config.methodGroupName][method.name] = method.wrapped;
+      Router[config.methodGroupName + method.name.charAt(0).toUpperCase() + method.name.slice(1)] = method.wrapped;
     });
   return Router;
 };
